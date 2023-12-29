@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sm_sys?userUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 147hai147
+    type: com.alibaba.druid.pool.DruidDataSource #引入druid数据源
+    druid:
+      #SpringBoot因为默认是hikari数据源所以对于其他数据源默认是不注入这些属性的，需要手动配置
+      #druid数据源专有配置
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 600000
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sm.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+sm:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: haihai
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+  alioss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id: LTAI5t8xTHMDjNN3ReCMewX5
+    access-key-secret: QlfX1d4hENAK9U8QtjkJcKEbjPZQBC
+    bucket-name: sm-sys
+  redis:
+    host: localhost
+    port: 6379
+    password: 147hai147
+    database: 2
+
+

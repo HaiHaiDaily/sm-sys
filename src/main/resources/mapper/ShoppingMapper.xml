@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sm.mapper.ShoppingMapper">
+    <update id="update">
+        update shopping
+        <set>
+            <if test="name!=null">name = #{name},</if>
+            <if test="categoryId!=null">category_id=#{categoryId},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="image!=null">image=#{image},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="createTime!=null">create_time=#{createTime},</if>
+            <if test="updateTime!=null">update_time=#{updateTime},</if>
+            <if test="createUser!=null">create_user=#{createUser},</if>
+            <if test="updateUser!=null">update_user=#{updateUser},</if>
+            <if test="number!=null">number=#{number},</if>
+            <if test="employeeName!=null">employee_name=#{employeeName},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="pageQuery" resultType="com.sm.vo.ShoppingQueryVO">
+        select s.id, s.name, s.category_id, s.price, s.image, s.description, s.status, s.create_time, s.update_time, s.create_user, s.update_user, s.number, s.employee_name,  c.name category_name from shopping s,category c
+        <where>
+            s.category_id = c.id
+            <if test="name != null and name != ''">
+                and s.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                and category_id = #{categoryId}
+            </if>
+        </where>
+        group by s.id
+        order by s.id desc
+    </select>
+    <select id="countByMap" resultType="java.lang.Integer">
+        select count(id) from shopping
+        <where>
+            <if test="begin != null">
+                and create_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and create_time &lt; #{end}
+            </if>
+        </where>
+    </select>
+</mapper>
