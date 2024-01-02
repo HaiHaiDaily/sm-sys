@@ -29,8 +29,8 @@ public class ReportController {
      */
     @GetMapping("/employeeStatistics")
     public Result<EmployeeReportVO> employeeStatistics(
-            @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate begin,
-            @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate end){
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
         log.info("员工数据统计：{},{}",begin,end);
         EmployeeReportVO employeeReportVO = reportService.getEmployeeStatistics(begin,end);
         return Result.success(employeeReportVO);
@@ -44,8 +44,8 @@ public class ReportController {
      */
     @GetMapping("/shoppingStatistics")
     public Result<ShoppingReportVO> shoppingStatistics(
-            @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate begin,
-            @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate end){
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
         log.info("商品数据统计：{},{}",begin,end);
         ShoppingReportVO shoppingReportVO = reportService.getShoppingStatistics(begin,end);
         return Result.success(shoppingReportVO);
